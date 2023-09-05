@@ -5,6 +5,7 @@ import io
 import json
 
 from app import get_predict_df
+from helper import Helper
 
 
 app = FastAPI(title="YOLOv8 FastAPI", version="0.0.0")
@@ -22,7 +23,7 @@ def healthCheck():
 
 @app.post('/image_detect_to_json')
 def image_detect_to_json(file : bytes = File(...)):
-    img = Image.open(io.BytesIO(file)).convert('RGB')
+    img = Helper.get_img_from_bytes(file)
     
     preds = get_predict_df(img)
     
