@@ -1,3 +1,4 @@
 fastapi==0.103.1
 uvicorn==0.23.2
 ultralytics==8.0.170
+python-multipart==0.0.6
