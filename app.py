@@ -1,5 +1,6 @@
 from ultralytics import YOLO
-from ultralytics.yolo.utils.plotting import Annotator, colors
+# from ultralytics.yolo.utils.plotting import Annotator, colors
+from ultralytics.utils.plotting import Annotator, colors
 import pandas as pd
 import numpy as np
 from PIL import Image
