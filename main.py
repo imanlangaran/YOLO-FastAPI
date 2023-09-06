@@ -1,10 +1,10 @@
 from fastapi import FastAPI, File, status
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, StreamingResponse
 from PIL import Image
 import io
 import json
 
-from app import get_predict_df
+from app import get_predict_df, draw_boxes
 from helper import Helper
 
 
@@ -38,3 +38,7 @@ def image_detect_to_image(file : bytes = File(...)):
     img = Helper.get_img_from_bytes(file=file)
     
     preds = get_predict_df(img)
+    
+    out_img = draw_boxes(img=img, preds=preds)
+    
+    return StreamingResponse(content=)
