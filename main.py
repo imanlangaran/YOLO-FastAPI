@@ -41,4 +41,4 @@ def image_detect_to_image(file : bytes = File(...)):
     
     out_img = draw_boxes(img=img, preds=preds)
     
-    return StreamingResponse(content=)
+    return StreamingResponse(content=Helper.get_bytes_from_image(img=out_img), media_type="image/jpeg")
