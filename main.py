@@ -1,7 +1,6 @@
 from fastapi import FastAPI, File, status
 from fastapi.responses import RedirectResponse, StreamingResponse
 from PIL import Image
-import io
 import json
 
 from app import get_predict_df, draw_boxes
@@ -28,7 +27,7 @@ def image_detect_to_json(file : bytes = File(...)):
     preds = get_predict_df(img)
     
     result={}
-    result['detected_objects'] = json.loads(preds[['classes', 'confs']].to_json(orient='records'))
+    result['detected_objects'] = json.loads(preds[['name', 'conf']].to_json(orient='records'))
     
     return result
 
