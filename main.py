@@ -31,3 +31,10 @@ def image_detect_to_json(file : bytes = File(...)):
     result['detected_objects'] = json.loads(preds[['classes', 'confs']].to_json(orient='records'))
     
     return result
+
+
+@app.post('/image_detect_to_image')
+def image_detect_to_image(file : bytes = File(...)):
+    img = Helper.get_img_from_bytes(file=file)
+    
+    preds = get_predict_df(img)
