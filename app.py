@@ -10,6 +10,7 @@ from PIL import Image
 model = YOLO("models/yolov8n.pt")
 seg_model = YOLO("models/yolov8n-seg.pt")
 class_model = YOLO("models/yolov8n-cls.pt")
+pose_model = YOLO("models/yolov8n-pose.pt")
 
 
 def get_predict_df(file: Image) -> pd.DataFrame:
@@ -50,3 +51,11 @@ def get_class_df(file: Image) -> pd.DataFrame:
     classes["conf"] = result[0].to("cpu").numpy().probs.top5conf
     classes["name"] = classes["class"].replace(result[0].names)
     return classes
+
+
+def get_posed_img(file: Image) -> Image:
+    result = pose_model.predict(source=file)
+    annotator = Annotator(np.array(file))
+    for k in reversed(result[0].keypoints.data):
+        annotator.kpts(k, result[0].orig_shape, radius=5, kpt_line=True)
+    return Image.fromarray(annotator.result())
