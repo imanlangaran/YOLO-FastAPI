@@ -26,7 +26,7 @@ def healthCheck():
     return {"status": "ok"}
 
 
-@app.post("/image_detect_to_json")
+@app.post("/image_detect_to_json", tags=['Detection'])
 def image_detect_to_json(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file)
 
@@ -40,7 +40,7 @@ def image_detect_to_json(file: bytes = File(...)):
     return result
 
 
-@app.post("/image_detect_to_image")
+@app.post("/image_detect_to_image", tags=['Detection'])
 def image_detect_to_image(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file=file)
 
@@ -53,7 +53,7 @@ def image_detect_to_image(file: bytes = File(...)):
     )
 
 
-@app.post("/image_segment_to_image")
+@app.post("/image_segment_to_image", tags=['Segmentation'])
 def image_segment_to_image(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file=file)
 
@@ -64,7 +64,7 @@ def image_segment_to_image(file: bytes = File(...)):
     )
 
 
-@app.post("/image_class_to_json")
+@app.post("/image_class_to_json", tags=['Classification'])
 def image_class_to_json(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file=file)
 
@@ -76,7 +76,7 @@ def image_class_to_json(file: bytes = File(...)):
     return result
 
 
-@app.post("/image_pose_to_image")
+@app.post("/image_pose_to_image", tags=['Pose'])
 def image_pose_to_image(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file=file)
 
