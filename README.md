@@ -3,16 +3,18 @@
 This is a simple implementation of YOLOv8 using FastAPI which contains the following routes:
 
 + [`/docs` or `/`](#swagger-ui) : open Swagger UI!
-+ [`/healthcheck`](#health-check) : if the server is running with no problem, it returns `{'status': 'ok'}`
++ [`/healthcheck`](#health-check) : If the server is running with no problem, it returns `{'status': 'ok'}`.
 + [Detection](#detection)
   + [`/image_detect_to_json`](#image-detect-to-json) : it returns a JSON containing detected objects followed by their Name and confidence score.
   + [`/image_detect_to_image`](#image-detect-to-image) : returns an annotated image with detected objects and their confidence score.
 + [Segmentation](#segmentation)
-  + [`/image_segment_to_image`](#segmentation) : segment ...
+  + [`/image_segment_to_image`](#segmentation) : requires an image as input and returns a segmented image.
 + [Classification](#classification)
-  + [`/image_class_to_json`](#classification) : classification ...
+  + [`/image_class_to_json`](#classification) : It returns a JSON format of classified objects along with their confidence score. [^1]
 + [Pose](#pose)
-  + [`/image_pose_to_image`](#pose) : detect pose of human ...
+  + [`/image_pose_to_image`](#pose) : it requires an image and returns an annotated image.
+
+[^1]: note that YOLOv8 [Classify Models](https://docs.ultralytics.com/tasks/classify/#models) are trained on [ImageNet](https://github.com/ultralytics/ultralytics/blob/main/ultralytics/cfg/datasets/ImageNet.yaml) Dataset.
 
 ## Swagger UI
 
