@@ -13,6 +13,9 @@ This is a simple implementation of YOLOv8 using FastAPI which contains the follo
   + [`/image_class_to_json`](#classification) : It returns a JSON format of classified objects along with their confidence score. [^1]
 + [Pose](#pose)
   + [`/image_pose_to_image`](#pose) : it requires an image and returns an annotated image.
++ [Custom Dataset](#custom-dataset)
+  + [`/custom_image_detect_to_json`](#custom-dataset) : ---
+  + [`/custom_image_detect_to_image`](#custom-image-detect-to-image) : ---
 
 [^1]: note that YOLOv8 [Classify Models](https://docs.ultralytics.com/tasks/classify/#models) are trained on [ImageNet](https://github.com/ultralytics/ultralytics/blob/main/ultralytics/cfg/datasets/ImageNet.yaml) Dataset.
 
@@ -28,7 +31,7 @@ This is a simple implementation of YOLOv8 using FastAPI which contains the follo
 
 ## Detection
 
-### Image detect to json
+### Image detect to JSON
 
 ![image_detect_to_json](/pics/image_detect_to_json.png)
 [Top](#yolo-fastapi)
@@ -47,7 +50,7 @@ This is a simple implementation of YOLOv8 using FastAPI which contains the follo
 
 ## Classification
 
-### Image class to json
+### Image class to JSON
 
 ![image_class_to_json](/pics/image_class_to_json.png)
 [Top](#yolo-fastapi)
@@ -57,4 +60,16 @@ This is a simple implementation of YOLOv8 using FastAPI which contains the follo
 ### Image pose to image
 
 ![image_pose_to_image](/pics/image_pose_to_image.png)
+[Top](#yolo-fastapi)
+
+## Custom Dataset
+
+### Custom Image Detect to JSON
+
+![custom_image_detect_to_json](/pics/custom_image_detect_to_json.png)
+[Top](#yolo-fastapi)
+
+### Custom Image Detect to Image
+
+![custom_image_detect_to_image](/pics/custom_image_detect_to_image.png)
 [Top](#yolo-fastapi)
