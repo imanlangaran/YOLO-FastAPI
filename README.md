@@ -13,9 +13,9 @@ This is a simple implementation of YOLOv8 using FastAPI which contains the follo
   + [`/image_class_to_json`](#classification) : It returns a JSON format of classified objects along with their confidence score. [^1]
 + [Pose](#pose)
   + [`/image_pose_to_image`](#pose) : it requires an image and returns an annotated image.
-+ [Custom Dataset](#custom-dataset)
-  + [`/custom_image_detect_to_json`](#custom-dataset) : ---
-  + [`/custom_image_detect_to_image`](#custom-image-detect-to-image) : ---
++ [Custom Dataset](#custom-dataset) : I've used a public dataset from roboflow which contains football match images and are already annotated with regular players, referees, goalkeepers, and balls  
+  + [`/custom_image_detect_to_json`](#custom-dataset) : It requires an image and returns the result in JSON format.
+  + [`/custom_image_detect_to_image`](#custom-image-detect-to-image) : Same as above, but instead of JSON, returns an annotated image
 
 [^1]: note that YOLOv8 [Classify Models](https://docs.ultralytics.com/tasks/classify/#models) are trained on [ImageNet](https://github.com/ultralytics/ultralytics/blob/main/ultralytics/cfg/datasets/ImageNet.yaml) Dataset.
 
