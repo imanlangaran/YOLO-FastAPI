@@ -9,6 +9,7 @@ from app import (
     get_segmented_img,
     get_class_df,
     get_posed_img,
+    get_model,
 )
 from helper import Helper
 
@@ -26,11 +27,12 @@ def healthCheck():
     return {"status": "ok"}
 
 
-@app.post("/image_detect_to_json", tags=['Detection'])
+@app.post("/image_detect_to_json", tags=["Detection"])
 def image_detect_to_json(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file)
 
-    preds = get_predict_df(img)
+    model = get_model("detect")
+    preds = get_predict_df(img, model)
 
     result = {}
     result["detected_objects"] = json.loads(
@@ -40,11 +42,12 @@ def image_detect_to_json(file: bytes = File(...)):
     return result
 
 
-@app.post("/image_detect_to_image", tags=['Detection'])
+@app.post("/image_detect_to_image", tags=["Detection"])
 def image_detect_to_image(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file=file)
 
-    preds = get_predict_df(img)
+    model = get_model("detect")
+    preds = get_predict_df(img, model)
 
     out_img = draw_boxes(img=img, preds=preds)
 
@@ -53,22 +56,24 @@ def image_detect_to_image(file: bytes = File(...)):
     )
 
 
-@app.post("/image_segment_to_image", tags=['Segmentation'])
+@app.post("/image_segment_to_image", tags=["Segmentation"])
 def image_segment_to_image(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file=file)
 
-    out_img = get_segmented_img(file=img)
+    model = get_model("segment")
+    out_img = get_segmented_img(file=img, model=model)
 
     return StreamingResponse(
         content=Helper.get_bytes_from_image(img=out_img), media_type="image/jpeg"
     )
 
 
-@app.post("/image_class_to_json", tags=['Classification'])
+@app.post("/image_class_to_json", tags=["Classification"])
 def image_class_to_json(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file=file)
 
-    classes = get_class_df(file=img)
+    model = get_model("class")
+    classes = get_class_df(file=img, model=model)
 
     result = {}
     result["top5"] = json.loads(classes[["name", "conf"]].to_json(orient="records"))
@@ -76,11 +81,12 @@ def image_class_to_json(file: bytes = File(...)):
     return result
 
 
-@app.post("/image_pose_to_image", tags=['Pose'])
+@app.post("/image_pose_to_image", tags=["Pose"])
 def image_pose_to_image(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file=file)
 
-    out_img = get_posed_img(file=img)
+    model = get_model("pose")
+    out_img = get_posed_img(file=img, model=model)
 
     return StreamingResponse(
         content=Helper.get_bytes_from_image(img=out_img), media_type="image/jpeg"
