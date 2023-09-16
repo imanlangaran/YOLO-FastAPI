@@ -82,11 +82,40 @@ def image_class_to_json(file: bytes = File(...)):
 
 
 @app.post("/image_pose_to_image", tags=["Pose"])
-def image_pose_to_image(file: bytes = File(...)):
+def custom_image_pose_to_image(file: bytes = File(...)):
     img = Helper.get_img_from_bytes(file=file)
 
     model = get_model("pose")
     out_img = get_posed_img(file=img, model=model)
+
+    return StreamingResponse(
+        content=Helper.get_bytes_from_image(img=out_img), media_type="image/jpeg"
+    )
+
+
+@app.post("/custom_image_detect_to_json", tags=["Custom Dataset"])
+def custom_image_detect_to_json(file: bytes = File(...)):
+    img = Helper.get_img_from_bytes(file)
+
+    model = get_model("custom")
+    preds = get_predict_df(img, model)
+
+    result = {}
+    result["detected_objects"] = json.loads(
+        preds[["name", "conf"]].to_json(orient="records")
+    )
+
+    return result
+
+
+@app.post("/custom_image_detect_to_image", tags=["Custom Dataset"])
+def custom_image_detect_to_image(file: bytes = File(...)):
+    img = Helper.get_img_from_bytes(file=file)
+
+    model = get_model("custom")
+    preds = get_predict_df(img, model)
+
+    out_img = draw_boxes(img=img, preds=preds, draw_label=False)
 
     return StreamingResponse(
         content=Helper.get_bytes_from_image(img=out_img), media_type="image/jpeg"
